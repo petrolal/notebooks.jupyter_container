@@ -1,0 +1,21 @@
+services:
+  jupyter:
+    image: jupyter/base-notebook:latest
+    container_name: jupyter
+    user: "${UID}:${GID}"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./work:/home/jovyan/work
+      - app-data:/app/configs
+    environment:
+      - NB_UID="${UID}"
+      - NB_GID="${GID}"
+      - CHOWN_EXTRA="/home/jovyan/work"
+      - CHOWN_EXTRA_OPTS="-R"
+      - JUPYTER_ENABLE_LAB=no
+      - JUPYTER_TOKEN=bdfa9df1808fbcef9359d678a040928fb4e56959a1dbfe50
+    restart: unless-stopped
+
+volumes:
+  app-data:
